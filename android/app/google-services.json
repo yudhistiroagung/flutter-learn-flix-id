@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "973738940317",
+    "project_id": "flix-id-course-cdb28",
+    "storage_bucket": "flix-id-course-cdb28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973738940317:android:dae1eeac68b14acd484174",
+        "android_client_info": {
+          "package_name": "com.yudhistiroagung.flix_id"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdYed7oLgBJ8rG5AxFgT27lOBupM1baoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
