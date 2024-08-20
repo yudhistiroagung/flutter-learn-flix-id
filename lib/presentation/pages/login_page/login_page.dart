@@ -1,10 +1,16 @@
+import 'package:flix_id/presentation/extentions/build_context_extention.dart';
+import 'package:flix_id/presentation/misc/methods.dart';
 import 'package:flix_id/presentation/providers/router/router_provider.dart';
 import 'package:flix_id/presentation/providers/user_data/user_data_provider.dart';
+import 'package:flix_id/presentation/widgets/flix_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginPage extends ConsumerWidget {
-  const LoginPage({super.key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  LoginPage({super.key});
 
   Function() login(BuildContext context, WidgetRef ref) {
     return () {
@@ -22,23 +28,41 @@ class LoginPage extends ConsumerWidget {
       }
 
       if (next is AsyncError) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(next.error.toString())));
+        context.showSnackbar(next.error.toString());
       }
     });
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login"),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Center(
-            child: ElevatedButton(
-          onPressed: login(context, ref),
-          style: ElevatedButton.styleFrom(
-              minimumSize: const Size(double.infinity, 48.0)),
-          child: const Text("Login"),
-        )),
+        child: ListView(
+          children: [
+            verticalSpace(100),
+            Center(child: Image.asset('assets/flix_logo.png', width: 150)),
+            verticalSpace(70),
+            FlixtextField(label: "Email", controller: emailController),
+            verticalSpace(24),
+            FlixtextField(
+              label: "Password",
+              controller: passwordController,
+              obscureText: true,
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {},
+                child: const Text("Forgot Password?",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ),
+            verticalSpace(24),
+            ElevatedButton(
+              onPressed: login(context, ref),
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 48.0)),
+              child: const Text("Login"),
+            ),
+          ],
+        ),
       ),
     );
   }
