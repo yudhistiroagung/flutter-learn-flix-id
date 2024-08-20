@@ -14,9 +14,22 @@ class LoginPage extends ConsumerWidget {
 
   Function() login(BuildContext context, WidgetRef ref) {
     return () {
-      ref
-          .read(userDataProvider.notifier)
-          .login(email: "yudhistiro@flixid.com", password: "pass1234");
+      ref.read(userDataProvider.notifier).login(
+          email: emailController.text, password: passwordController.text);
+    };
+  }
+
+  Widget renderButton(BuildContext context, WidgetRef ref) {
+    return switch (ref.watch(userDataProvider)) {
+      AsyncData(:final value) => value == null
+          ? ElevatedButton(
+              onPressed: login(context, ref),
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 48.0)),
+              child: const Text("Login"),
+            )
+          : const CircularProgressIndicator(),
+      _ => const CircularProgressIndicator()
     };
   }
 
@@ -55,12 +68,21 @@ class LoginPage extends ConsumerWidget {
               ),
             ),
             verticalSpace(24),
-            ElevatedButton(
-              onPressed: login(context, ref),
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 48.0)),
-              child: const Text("Login"),
-            ),
+            renderButton(context, ref),
+            verticalSpace(24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Dont have an account?"),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    "Register here.",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
